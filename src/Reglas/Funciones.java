@@ -37,13 +37,22 @@ public class Funciones {
        {
            tok.append(c);
             conta++;
-       } else {
-           if(conta > 0)
-           {
+       } else if(conta > 0) {
             this.arreglo.add(tok.toString());
+            if(c != h){
+                tok = new StringBuilder();
+                tok.append(c);
+                this.arreglo.add(tok.toString());
+                c = ' ';
+            }
             tok = new StringBuilder();
             conta = 0;
-           }
+       } 
+       
+       if(c != h) {
+            tok = new StringBuilder();
+            tok.append(c);
+            this.arreglo.add(tok.toString());
        }
 
        //String token = tok.toString();
