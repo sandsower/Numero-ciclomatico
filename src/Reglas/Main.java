@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args)
     {
             Funciones funciones=new Funciones();
-            File f = new File( "//home//sands//texto.txt" );
+            File f = new File( "e:/IS/src/reglas/Funciones.java" );
             System.out.println(f.length());
             BufferedReader entrada = null;
             try
