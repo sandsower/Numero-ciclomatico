@@ -145,30 +145,35 @@ public class Funciones {
         ArrayList nuevoArreglo = new ArrayList();
         Iterator it = arreglo.iterator();
         boolean encontradoIf = false;
+        boolean encontradoElse = false;
         int pasos = 0;
         int cuenta = 0;
         while (it.hasNext()) {
-            pasos++;
             String linea = it.next().toString();
             String conc = "";
+            if(linea.contains("else")){
+                encontradoElse = true;
+            }
             if(linea.contains("if")){
                 encontradoIf = true;
             }
-            else if(linea.contains("{") && encontradoIf)
+            else if(linea.contains("{") && encontradoIf && !encontradoElse)
             {
                 cuenta++;
                 conc=" Inicio de ciclo #"+String.valueOf(cuenta);
                 nuevoArreglo.add(linea+conc);
             }
-            else if(linea.contains("}") && encontradoIf)
+            else if(linea.contains("}") && encontradoIf && !arreglo.get(pasos+1).toString().contains("else"))
             {
                 conc=" Fin de ciclo #".concat(String.valueOf(cuenta));
                 cuenta--;
                 encontradoIf = false;
+                encontradoElse = false;
                 nuevoArreglo.add(linea+conc);
             }else {
             nuevoArreglo.add(linea+conc);
             }
+            pasos++;
         }
         setArreglo(nuevoArreglo);
     }
