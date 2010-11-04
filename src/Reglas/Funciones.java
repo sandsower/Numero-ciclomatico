@@ -144,31 +144,32 @@ public class Funciones {
     public void marcar(){
         ArrayList nuevoArreglo = new ArrayList();
         Iterator it = arreglo.iterator();
-        boolean encontradoIf = false;
-        boolean encontradoElse = false;
+        int cuentaIf = 0;
+        int cuentaElse = 0;
         int pasos = 0;
         int cuenta = 0;
         while (it.hasNext()) {
             String linea = it.next().toString();
             String conc = "";
             if(linea.contains("else")){
-                encontradoElse = true;
+                cuentaElse++;
             }
             if(linea.contains("if")){
-                encontradoIf = true;
+                cuentaIf++;
             }
-            else if(linea.contains("{") && encontradoIf && !encontradoElse)
+            else if(linea.contains("{") && cuentaIf>0 && cuentaElse<cuentaIf)
             {
                 cuenta++;
                 conc=" Inicio de ciclo #"+String.valueOf(cuenta);
                 nuevoArreglo.add(linea+conc);
             }
-            else if(linea.contains("}") && encontradoIf && !arreglo.get(pasos+1).toString().contains("else"))
+            else if(linea.contains("}") && cuentaIf>0 && !arreglo.get(pasos+1).toString().contains("else"))
             {
                 conc=" Fin de ciclo #".concat(String.valueOf(cuenta));
                 cuenta--;
-                encontradoIf = false;
-                encontradoElse = false;
+                cuentaIf--;
+                if(cuentaElse != 0)
+                    cuentaElse--;
                 nuevoArreglo.add(linea+conc);
             }else {
             nuevoArreglo.add(linea+conc);
