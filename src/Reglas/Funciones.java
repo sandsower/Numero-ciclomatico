@@ -19,42 +19,27 @@ public class Funciones {
 
         if (!this.isDelimitador(c)) {
             tok.append(c);
-            conta++;
-<<<<<<< HEAD
-       } else if(conta > 0) {
-            this.arreglo.add(tok.toString());
-            if(c != h){
-                tok = new StringBuilder();
-                tok.append(c);
-                this.arreglo.add(tok.toString());
-                c = ' ';
-            }
-            tok = new StringBuilder();
-            conta = 0;
-       } 
-       
-       if(c != h) {
+            conta=1;
+        } else if (!this.comprobarWhitespace(c) && conta == 0) {
             tok = new StringBuilder();
             tok.append(c);
             this.arreglo.add(tok.toString());
-       }
-
-       //String token = tok.toString();
-       //Console.WriteLine("myString2 = " + myString2);
-       //separador = Character.toString(c);
-=======
-        } else {
-            if (conta > 0) {
+            tok = new StringBuilder();
+            conta = 1;
+        } else if(!this.comprobarWhitespace(c) || c == ' ') {
+            this.arreglo.add(tok.toString().trim());
+            tok = new StringBuilder();
+            if (!this.comprobarWhitespace(c)){
+                tok.append(c);
                 this.arreglo.add(tok.toString());
                 tok = new StringBuilder();
-                conta = 0;
             }
+            conta = 0;
         }
 
         //String token = tok.toString();
         //Console.WriteLine("myString2 = " + myString2);
         //separador = Character.toString(c);
->>>>>>> ciclomatico/master
     }
 
     public void limpiarCodigo(String linea) {
@@ -107,18 +92,22 @@ public class Funciones {
             case '=':
                 return true;
 
-            case '\"':
+            case '#':
                 return true;
 
-            case '\'':
+            case '<':
                 return true;
 
+            case '>':
+                return true;
+                
             default:
                 return false;
         }
     }
 
     public void imprimirPalabras() {
+        this.marcar();
         Iterator it = arreglo.iterator();
         while (it.hasNext()) {
             System.out.println(it.next().toString());
@@ -137,5 +126,50 @@ public class Funciones {
      */
     public void setArreglo(ArrayList arreglo) {
         this.arreglo = arreglo;
+    }
+
+    public boolean comprobarWhitespace(char c){
+         switch (c) {
+             case '\t':
+                 return true;
+             case '\n':
+                 return true;
+             case ' ':
+                 return true;
+             default:
+                 return false;
+         }
+    }
+
+    public void marcar(){
+        ArrayList nuevoArreglo = new ArrayList();
+        Iterator it = arreglo.iterator();
+        boolean encontradoIf = false;
+        int pasos = 0;
+        int cuenta = 0;
+        while (it.hasNext()) {
+            pasos++;
+            String linea = it.next().toString();
+            String conc = "";
+            if(linea.contains("if")){
+                encontradoIf = true;
+            }
+            else if(linea.contains("{") && encontradoIf)
+            {
+                cuenta++;
+                conc=" Inicio de ciclo #"+String.valueOf(cuenta);
+                nuevoArreglo.add(linea+conc);
+            }
+            else if(linea.contains("}") && encontradoIf)
+            {
+                conc=" Fin de ciclo #".concat(String.valueOf(cuenta));
+                cuenta--;
+                encontradoIf = false;
+                nuevoArreglo.add(linea+conc);
+            }else {
+            nuevoArreglo.add(linea+conc);
+            }
+        }
+        setArreglo(nuevoArreglo);
     }
 }
