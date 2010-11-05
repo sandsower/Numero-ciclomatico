@@ -6,6 +6,12 @@ import java.util.Iterator;
 /**
  *
  * @author Sanders
+ * @nota
+ * Profesor, los archivos tambien estan almacenados en un repositorio en linea.
+ * Para descargarlos puede entrar a la pagina https://github.com/sandsower/Numero-ciclomatico
+ * Tambien se ve ahi cada cambio que se le hizo, por si quiere comprobar el procedimiento que usamos
+ *
+ * Atte: Victor y Carlos
  */
 public class Funciones {
 
@@ -33,7 +39,7 @@ public class Funciones {
             tok = new StringBuilder();
         } else //De haber sido una palabra antes de encontrar el delimitador O
         //Si el espacio es el delimitador...
-        if (!this.comprobarWhitespace(c) || c == ' ') {
+        if (!this.comprobarWhitespace(c) || c == ' ' && conta == 1) {
             //Agregamos lo que llevamos acumulado a la lista
             this.arreglo.add(tok.toString().trim());
             //Reseteamos el acumulador de palabras

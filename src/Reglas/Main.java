@@ -6,10 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- *
- * @author Raúl Valadez Romo
- */
 public class Main {
 
     /**
@@ -17,7 +13,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Funciones funciones = new Funciones();
-        File f = new File("/home/sands/Proyectos Cpp/Primeros pasos/PruebasCpp/PruebaCh.cpp");
+        File f = new File("/home/sands/Proyectos Cpp/Primeros pasos/PruebasCpp/dobleEnlace.c");
         System.out.println("----------------------------------------------------");
         System.out.println("Documento a evaluar:");
         System.out.println("----------------------------------------------------\n\n\n");
